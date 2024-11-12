@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Loading Multiple Templates Defined in a JSON File</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="experiment1.css"/>
+</head>
+
+<body>
+
+<div id="ui">
+	<div id="topbar">
+		<div id="navgrp">
+			<a href="javascript:void(0)" id="reset" onclick="route(this); showJsonData();" title="Reset All Templates">Reset All Templates</a> 
+			<a href="javascript:void(0)" id="link1" onclick="route(this)" title="Load One Template">Load One Template</a> 
+			<a href="javascript:void(0)" id="link2" onclick="route(this)" title="Load Two Templates">Load Two Templates</a>
+			<a href="javascript:void(0)" id="link3" onclick="route(this)" title="Load Three Templates">Load Three Templates</a>
+		</div>
+		<div id="newwinbtn" onclick="newWindow()" title="Open this page in a new tab or window"></div>
+		<div id="closebtn" onclick="loadBlankPage()" title="Close This Javascript Experiment"></div>
+	</div>
+	<div id="mainview">
+		<div id="left">
+			<div id="boxa" title="Box A"></div>
+			<div id="boxb" title="Box B"></div>
+			<div id="boxc" title="Box C"></div>
+		</div>
+		<div id="right"></div>
+	</div>
+</div>
+
+<!-- ==================== TEMPLATES ==================== -->
+
+<template id="templateA">
+	<div class="gold">
+		<img src="avatar.svg" height="80%">
+	</div>
+</template>
+
+<template id="templateB">
+	<div class="purple">
+		<img src="gearhead.svg" height="80%"/>
+	</div>	
+</template>
+
+<template id="templateC">
+	<div class="green">
+		<img src="bonsai.svg" width="80"/>
+	</div>
+</template>
+
+<template id="new_content">
+	<div class="box tan">
+		<h1>One Button Loads Multiple Templates</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+	</div>		
+</template>
+
+<template id="singletpl">
+	<div class="box tan">
+		<h1>Single Template Page Load</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+	</div>	
+</template>
+
+<template id="doubletpl">
+	<div class="box tan">
+		<h1>One Link Loads Two Templates</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+	</div>
+</template>
+
+<template id="bonsai">
+	<br><img src="bonsai.svg" title="Bonsai!" width="80"/>
+	<ul style="margin:0;padding:0;">
+		<li>Bonsai</li>
+		<li>Tree</li>
+	</ul>
+</template>
+
+<template id="three_content">
+	<div class="box tan">
+		<h1>One Link Loads Three Templates</h1>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.</p>
+	</div>		
+</template>
+
+<template id="default_content">
+	<div class="box tan">
+		<h1>Loading Multiple Templates Defined in a JSON File</h1>
+		<p>Note: clicking the "Reset All Templates" link above will reset everything to this default view.</p>
+		<p>The "<b>Click Me</b>" button on the left should change 4 panes simultaneously: A, B, C, and this Main Content Area</p>
+		<p>This is done by mapping the HTML page elements to data contained inside of &lt;template&gt; tags in this page.</p>
+		<p>The JSON file named <a href="routemap.json" target="_blank" style="margin:0; padding: 0;">routemap.json</a> looks like this:
+		<p>
+			<form>
+				<textarea id="txtdisplay" rows="25" cols="35"></textarea>
+			</form>
+		</p>
+		<p>The "<b>linktarg</b>" value defines the default target for single links. The rest of the items in the JSON file define the ID of the element being clicked, the template data to load, and the target element (where to load them to). Let's break down what happens and how it works:</p>
+		<p>
+			<ol>
+				<li>This HTML page contains the layout of the UI and &lt;template&gt; tags which are hidden by default</li>
+				<li>This HTML page loads 2 Javascript files:</li>
+				<li>The first Javascript file (router.js) contains the functions which load the JSON data and handles template loading</li>
+				<li>The second Javascript file (experiment1.js) simply loads the default data and initiates the router</li>
+				<li>Each link or button contains an 'onclick' call to the route() function passing '<a href="https://www.w3schools.com/js/js_this.asp" target="_blank" style="margin:0; padding: 0;">this</a>' as an argument</li>
+				<li>The route function gets the id of the link or button, looks up the mapping in the routemap, and then loads the appropriate templates</li>
+			</ol>
+		</p>
+		<p>Let's see how this works by using the "<b>Click Me</b>" button on the left as an example:</p>
+		<p>This HTML page that you're reading contains the UI layout. The relevant code looks like this:
+<form>
+<textarea id="htmldisplay" rows="9" cols="45">
+<div id="mainview">
+  <div id="left">
+    <div id="boxa" title="Box A"></div>
+    <div id="boxb" title="Box B"></div>
+    <div id="boxc" title="Box C"></div>
+  </div>
+  <div id="right"></div>
+</div>
+</textarea>
+</form>
+		</p>
+		<p>
+			The HTML page calls 2 Javascript files when it loads:
+<pre>
+&lt;script src="router.js"&gt;&lt;/script&gt;
+&lt;script src="experiment1.js"&gt;&lt;/script&gt;
+</pre>
+		</p>
+		<p>The <a href="router.js" target="_blank" style="margin:0; padding: 0;">router.js</a> file first checks to see if we have a copy of the data in local storage. If not, it loads the <a href="routemap.json" target="_blank" style="margin:0; padding: 0;">routemap.json</a> file and stores the data in local storage. The <a href="experiment1.js" target="_blank" style="margin:0; padding: 0;">experiment1.js</a> file loads the default template data and writes it to the page elements (boxa, boxb, boxc, and right). Then it starts the router functionality. After all the scripts load, clicking a link or a button calls the "route()" function inside the router.js file. Using our example of the "Click Me" button, here is what the HTML code looks like (the important part is highlighted with bold text):</p>
+
+		<p>
+&lt;button id="button1" <b>onclick="route(this)"</b> title="Click To Load Multiple Templates" class="clickme"&gt;Click Me&lt;/button&gt;
+		</p>
+
+		<p>See that? The onclick action for the button is set to "<b>route(this)</b>".</p>
+		
+		<p>In fact, all the links and buttons in this HTML page follow the same syntax. Here's a sample anchor link from the top navigation bar:</p>
+
+		<p>
+&lt;a href="javascript:void(0)" id="link1" <b>onclick="route(this)"</b> title="Load One Template"&gt;Load One Template&lt;/a&gt;			
+		</p>
+		<p>So, whether you're clicking a link, or a button, you're calling the "route()" function from router.js and passing the '<a href="https://www.w3schools.com/js/js_this.asp" target="_blank" style="margin:0; padding: 0;">this</a>' keyword as an argument to the function.</p>
+
+		<p>The route() function then inspects the object being passed (this) and tries to get the id of that object. So, in our example of the "Click Me" button: when a user clicks the button, the value of this.id is "button1". The route() function checks the routemap in local storage to see if we have an element named "button1" then, if we do have an element with that id, it loads the appropriate template(s) as defined in the routemap (initially loaded from the routemap.json file). So, if you scroll up and look at the JSON data again, you'll see that we have this information:</p>
+
+		<p>
+<pre>
+"button1": {
+  "boxa": "templateA",
+  "boxb": "templateB",
+  "boxc": "templateC",
+  "right": "new_content"
+}	
+</pre>			
+		</p>
+
+		<p>When the "Click Me" button is clicked, the route() function knows that we have an element with the id "button1". Then, it loads the corresponding templates to the elements which are defined in the JSON data above. So, in the "boxa" element we load the data from &lt;template id="templateA"&gt;. In the "boxb" element, we load the data from &lt;template id="templateB"&gt;. In the "boxc" element, we load the data from &lt;template id="templateC"&gt;. And, in the "right" DIV element (this main area of the page that you're reading), we load the data from &lt;template id="new_content"&gt;. So, 4 element ids and 4 corresponding template ids are passed to the function which loops through them and loads the data.</p>
+
+		<p>The <a href="https://www.w3schools.com/tags/tag_template.asp" target=_blank" style="margin:0; padding:0;">template element</a> data which is embedded in this HTML page (and hidden by your browser by default) looks like this:<br>
+			<form>
+				<textarea id="templatedata" rows="30" cols="120">
+&lt;template id="templateA"&gt;
+  &lt;div class="gold"&gt;
+    &lt;img src="avatar.svg" height="80%"&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;template id="templateB"&gt;
+  &lt;div class="purple"&gt;
+    &lt;img src="gearhead.svg" height="80%"&gt;
+  &lt;/div&gt;	
+&lt;/template&gt;
+
+&lt;template id="templateC"&gt;
+  &lt;div class="green"&gt;
+    &lt;img src="bonsai.svg" width="80"&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;template id="new_content"&gt;
+  &lt;div class="box tan"&gt;
+    &lt;h1&gt;One Button Loads Multiple Templates&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ac elementum mi. Fusce lacinia cursus lacus, in ullamcorper odio. Pellentesque dictum rutrum libero eu gravida. Etiam at malesuada nibh, eget pharetra orci. Vestibulum eu vehicula dui. Sed efficitur magna nec libero aliquam, ut condimentum neque dignissim. Cras id tortor et lectus viverra ultrices. Duis non gravida eros, eu vehicula nisi. Donec in lectus at dui vestibulum sagittis.&lt;/p&gt;
+  &lt;/div&gt;		
+&lt;/template&gt;				
+				</textarea>
+			</form>
+		</p>
+
+		<p>So, the routemap.json file defines the ids of the clickable elements (links or buttons), the ids of the target elements (usually &lt;div&gt; tags), and the ids of the template data to load into those target elements. If only a single element id is being passed, the Javascript function uses the element defined with "linktarg" (in the JSON file) to know which &lt;div&gt; to load the template data to. To see this in action, click the "Load One Template" link in the navigation bar above. If you inspect the JSON file above, you'll see that this is defined on this line here: <b>"link1": "singletpl",</b></p>
+		<p>In this particular case, only the id of the clickable element ("link1") and the id of the template element to load ("singletpl") are being passed to the function. There is no id for the target &lt;div&gt; being passed. In these cases, the route() function just uses the target element defined in "linktarg" to know where to load the template data to. This only works for single template links. If multiple templates are being loaded, then each template id to be loaded must have a corresponding target element id to know where to load the data.</p>
+
+		<p>You can download this entire example (in .zip format) here: <a href="experiment1.zip" style="margin:0; padding:0;">Javascript Experiment 1</a></p>
+
+		<p>Open it in your favorite editor and take a look at what is going on with the code.</p>
+
+		<br><br>
+	</div>
+</template>
+
+<template id="default_boxa">
+	<div class="defaulttxt">
+		A
+	</div>
+</template>
+
+<template id="default_boxb">
+	<div class="defaulttxt">
+		B
+	</div>
+	<br>
+	<button id="button1" onclick="route(this)" title="Click To Load Multiple Templates" class="clickme">Click Me</button>
+</template>
+
+<template id="default_boxc">
+	<div class="defaulttxt">
+		C
+	</div>
+</template>
+
+<!-- ==================== TEMPLATES ==================== -->
+
+<script src="router.js"></script>
+<script src="experiment1.js"></script>
+
+</body>
+</html>

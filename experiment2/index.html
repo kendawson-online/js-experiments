@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Loading Page Templates Using Hidden iFrames</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="dev-load-iframe-template.css">
+	<script src="dev-load-iframe-template.js"></script>
+</head>
+
+<body>
+
+<div id="closebtn" onclick="loadBlankPage()" title="Close This Javascript Experiment"></div>
+
+<h1 style="color:black;">Loading Page Templates Using Hidden iFrames</h1>
+
+<!-- Primary Target -->
+<label>Target Element</label>
+<main id="main" class="mainbox"></main>
+
+<br>
+
+<!-- buttons -->
+<label>Load Template Data:</label> 
+<button onclick="loadTemplate('test1')">Page 1</button>
+<button onclick="loadTemplate('test2')">Page 2</button>
+<button onclick="loadTemplate('test3')">Page 3</button>
+<button onclick="switchTemplateSource()">Switch Template Source</button>
+
+<br><br>
+
+<!-- test iframe -->
+<iframe 
+	id="testframe" 
+	src="iframe-template-content.html"
+	name="testframe" 
+	class="testframe"
+></iframe>
+
+<!-- iframe indicator -->
+<span style="color: #878787; vertical-align:middle;">⬅ This is the hidden iframe here!</span>
+
+<hr>
+
+<div style="color: black;">
+	<h1>Description:</h1>
+
+	<p>This is another template-loading experiment. In the first experiment, I was loading data from &lt;template&gt; tags that were located inside the same HTML file. This experiment is different because we are loading external HTML files to an iframe first, then loading data from inside of &lt;template&gt; tags. To understand how it works, take a look at the files involved in the image below.</p>
+	
+	<p><img src="../../../img/experiment2-layout.png"></p>
+	
+	<p>The file you're reading now is named "index.html" and it contains an iframe which initially loads the file "iframe-template-content.html". The background color of that page is colored yellow so you can see it when it loads inside of the iframe. For demonstration purposes, the iframe is also highlighted with a dotted outline so you can see where it is located on the page. When you click the Page 1, Page 2, and Page 3 buttons above, you're loading template data from the "iframe-template-content.html" file.</p>
+	
+	<p>If you click the "Switch Template Source" button it loads a new file in the iframe ("iframe-template-alt-content.html"). This file uses a different background color so you can see it when it loads in the iframe. The file contains different template tag data so, when you click the Page 1, Page 2, and Page 3 buttons you'll see different template data being loaded. Clicking the "Switch Template Source" button again will load the original HTML file ("iframe-template-content.html"). After this happens, the Page 1, Page 2, and Page 3 buttons will load the original tempate data again.</p>
+	
+	<p>If I was using this method on an actual site, I would hide the iframe by making it small (1 px by 1px) and not show the outline. I'd also set the background color of the template pages to be white so they would blend into the background of the index.html page. If you did the CSS styling in this way, the end-user wouldn't even see the iframe or the files being loaded into the iframe. Using this method, you could load different template source files instead of including all the &lt;template&gt; tags in a single document.</p>
+
+	<p>The primary purpose of doing this would be to make the template files smaller. One app I was working on had a lot of data hidden in &lt;template&gt; tags. The file size was starting to get quite large and it was getting difficult to edit data inside the templates. By dividing the templates into multiple HTML files, it made the files smaller and it became easier to to find the specific data templates that I wanted to edit.</p>
+
+	<p>You can download this code and play around with it here: <a href="experiment2.zip" target="_blank">experiment2.zip</a></p>
+
+
+</div>
+
+
+
+<script>
+	// try to get the iframe
+	var myiframe = document.getElementById('testframe');
+	// if we have an iframe...
+	if (myiframe) {
+		// after it loads,
+		// try to fetch templates from iframe src
+		myiframe.onload = function() {  getTemplateData(myiframe); };
+	} else {
+		// no iframe element
+		console.error('The iframe page element could not be found');
+	}
+
+	// close the experiment 
+	function loadBlankPage() {
+		// first check to make sure we're in the iframe
+		if (window.self !== window.top) {
+			// if so, load the blank page
+			window.parent.frames['sourceviewer'].location.href = '../blank.html';
+		} else {
+			// otherwise, if we're in a new tab or window, close it
+			self.close();
+		}
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Return Code Experiment</title>
+  <style>
+    body {
+      background-color: white;
+      position: relative;
+    }
+
+    #closebtn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 20px 20px 0 0;
+      width: 40px;
+      height: 40px;
+      background-image: url('/img/x.svg');	
+      background-repeat: no-repeat;
+      background-size: 80%;
+      background-position: center;
+      background-color: transparent;
+    }
+
+    #closebtn:hover, #closebtn:active {
+      background-color: red;
+      cursor: pointer;
+    }    
+  </style>
+  <script>
+    // close the experiment 
+    function loadBlankPage() {
+      // first check to make sure we're in the iframe
+      if (window.self !== window.top) {
+        // if so, load the blank page
+        window.parent.frames['sourceviewer'].location.href = '../blank.html';
+      } else {
+        // otherwise, if we're in a new tab or window, close it
+        self.close();
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div id="closebtn" onclick="loadBlankPage()" title="Close"></div>
+
+  <br>
+
+  <div style="width: 90%; margin: 0 auto;">
+  
+    <h1>Return Code Experiment</h1>
+
+    <div style="border: 2px solid black; border-radius: 12px; padding: 20px; width: 50%; box-shadow: 2px 2px;">
+      <form id="codeForm">
+        <label for="codeInput">Enter Your Return Code:</label>
+        <input type="text" id="codeInput" name="codeInput" maxlength="10" style="font-size: 16px; padding: 4px;" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <p style="font-weight: bold;">Don't have a return code?</p>
+    
+    <p>Get one from one of these pages:
+      <ul>
+        <li><a href="page1.html">page1.html</a></li>
+        <li><a href="page2.html">page2.html</a></li>
+        <li><a href="page3.html">page3.html</a></li>
+      </ul>
+    </p>
+
+    <hr>
+
+    <h3>Description:</h3>
+
+    <p>This experiment started with the desire to add a return code to some of my pages. The user would be given a code at the bottom of the page they were currently on. Then, later, they could return to the index page, paste the return code to jump back to the page where they left off. The problem I had was that I wanted the codes to be pseudo-unique. I didn't want people sharing the same code online and using it over and over. So, I came up with this method which involves a "seed code" mapped to a URL. Each pseudo-unique return code is generated from a seed code which is attached to a specific page.</p>
+
+    <p>To start with, I created a JSON file called "urlcodes.json" which maps URLs to seed codes and looks like this:<br>
+    <form>
+    <textarea rows="6" cols="35">
+  {
+    "page1.html": "1CbJf",
+    "page2.html": "a5T2e",
+    "page3.html": "M1p3s"
+  }
+    </textarea>
+    </form></p>
+
+    <p>Let's use the seed code for page1.html as our example: <span style="font-family: monospace; color: red;"><b>1CbJf</b></span></p>
+
+    <p>The seed code contains only upper and lowercase letters and numbers. There are no special characters or duplicated characters. Each character in the code is unique. Since all 5 characters (1, C, b, J, f) are unique, the number of permutations is 5! (5 factorial). Therefore, there are 120 possible unique permutations of the code "1CbJf". The unique permutaions are "padded" with extra letters and numbers to create the psuedo-random return codes. The encoding method is like this: 
+    
+    <span style="color:red; font-family: monospace;">1</span>
+    <span style="color:green; font-family: monospace;">#</span>
+    <span style="color:red; font-family: monospace;">C</span>
+    <span style="color:green; font-family: monospace;">#</span>
+    <span style="color:red; font-family: monospace;">b</span>
+    <span style="color:green; font-family: monospace;">#</span>
+    <span style="color:red; font-family: monospace;">J</span>    
+    <span style="color:green; font-family: monospace;">#</span>
+    <span style="color:red; font-family: monospace;">f</span>  
+    <span style="color:green; font-family: monospace;">#</span>    
+    </p>
+
+    <p>Every other character in the pseudo-random return code is part of the actual seed code (or one of it's permutations). Random letters and numbers are used to fill the spots indicated by the pound symbols (#). So, a "padded" return code might look like this: <b>JxfcCobb1F</b>. When we remove every other character (starting with the second character) we end up with this code: <span style="font-family: monospace; color: red;">JfCb1</span> which is also a valid permuation of the original seed code from the JSON file. They are the same letters and letter case as the original seed code but, they're in a different order. It is one of the 120 possible unique permutations of the code "1CbJf" and is therefore valid.</p>
+
+    <p>So, the Javascript functions take the return code given by the end-user, it extracts the "real" code from the padded code which contains extra letters and numbers. It checks to see if it's a valid permuation of the seed code we have in the JSON file. If it is, then the user is directed to the URL. If not, they are told that the code is not valid.</p>
+
+    <p>By padding the unique permutations of the seed code with extra letters and numbers (making a 10 character code instead of using 5 characters) we can increase the number of unique possible permutations to 3,628,800. There are still only 120 possible unique permutaions of the real seed code. But, we can hand out 3,628,800 variations of this to the end users creating a unique pseudo-random code for each person. If 5 visitors came to the site and were issued these 5 return codes:</p>
+
+    <p>
+      <ol>
+        <li>bnfc1LJbCt</li>
+        <li>CKfnJo1Obw</li>
+        <li>C1JP1dbcfE</li>
+        <li>bNCi1KJdfE</li>
+        <li>fXJqCBbW1r</li>
+      </ol>
+    </p>
+
+    <p>All 5 would be valid permutations of the original seed code for page1.html (1CbJf) and would direct the user to that page. By obfuscating the permutations of the seed code into the 10 character "padded" code we can give the end user the appearance that they each have a unique code created just for them. But, of course, this method of obfuscating codes should not be used as a form of security. The codes are not guranteed to be unique. And, anyone who knows Javascript could reverse engineer the codes to see how the validation is done. Or, even easier they could just look at the urlcodes.json file and see the seed codes.</p>
+
+    
+    <p>But for applications where security and authentication is not a concern, this method could be used to return to a specific page or section of the web site. Sort of a "shortcut" which could be used on sites which have long and complicated URLs. This method could also be used to share a page with other people. By sending them the return code, the person could jump right to a specific page or section of the site without using the URL or a bookmark.</p>
+
+    <p><span style="font-weight: bold; color: red;">TL;DR &ndash; Don't use this code for web site security! This is not a secure way to validate or authenticate users. It's just a way to link to web content which is already public.</span></p>
+
+    <p>You can download this code and play around with it here: <a href="experiment4.zip" target="_blank">experiment4.zip</a></p>
+
+    <br><br>
+  
+  </div>
+
+  <script src="codeprocessor.js"></script>
+
+</body>
+</html>

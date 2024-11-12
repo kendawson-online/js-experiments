@@ -1,0 +1,47 @@
+body {
+    background-color: white;
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #878787;
+    padding: 10px;
+}
+/* hidden iframe */
+.testframe {
+    width: 25px; 
+    height: 25px; 
+    /* display: none; */
+    border: 1px dotted black;
+    vertical-align: middle;
+}
+.mainbox {
+    height: 350px;
+    border: 3px dashed black;
+    font-family: Arial, Helvetica, sans-serif;
+    color: navy;
+    background-color: #EEEEEE;
+    padding: 20px;
+}
+label {
+    font-family: monospace;
+    color: black;
+    font-weight: bold;
+}
+
+#closebtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 20px 20px 0 0;
+    width: 40px;
+    height: 40px;
+    background-image: url('/img/x.svg');	
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center;
+    background-color: transparent;
+}
+
+#closebtn:hover, #closebtn:active {
+    background-color: red;
+    cursor: pointer;
+}	

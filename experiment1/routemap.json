@@ -1,0 +1,25 @@
+{
+	"linktarg": "right",
+	"button1": {
+		"boxa": "templateA",
+		"boxb": "templateB",
+		"boxc": "templateC",
+		"right": "new_content"
+	},
+	"link1": "singletpl",
+	"link2": {
+		"boxc": "bonsai",
+		"right": "doubletpl"
+	},
+	"reset": {
+		"boxa": "default_boxa",
+		"boxb": "default_boxb",
+		"boxc": "default_boxc",
+		"right": "default_content"
+	},
+	"link3": {
+		"boxa": "templateC",
+		"boxc": "templateA",
+		"right": "three_content"
+	}
+}

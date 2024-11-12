@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Data Attributes Interacting With CSS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+		body {
+			background-color: white;
+			padding: 2px;
+			margin: 2px;
+			position: relative;
+		}
+		main {
+			margin: 0 auto;
+			padding: 10px;
+			width: 500px;
+			height: 300px;			
+		}
+		main::before {
+			content: 'Switch is set to: ' attr(data-switch);
+		}
+		main[data-switch='1'] {
+			border: 3px dashed rebeccapurple;
+			background-color: lightgoldenrodyellow;
+		} 
+		main[data-switch='2'] {
+			border: 3px dashed black;
+			background-color: lightseagreen;
+		} 
+		main[data-switch='3'] {
+			border: 3px dashed red;
+			background-color: pink;
+		} 
+		main[data-switch='4'] {
+			border: 3px dashed green;
+			background-color: lightgreen;
+		}
+		#closebtn {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin: 20px 20px 0 0;
+			width: 40px;
+			height: 40px;
+			background-image: url('/img/x.svg');	
+			background-repeat: no-repeat;
+			background-size: 80%;
+			background-position: center;
+			background-color: transparent;
+		}
+		#closebtn:hover, #closebtn:active {
+			background-color: red;
+			cursor: pointer;
+		}	
+		#grid-example {
+			display: grid;
+			gap: 10px;
+			margin: 20px auto;
+			max-width: 500px;
+		}
+
+		#grid-example[data-columns="1"] { grid-template-columns: 1fr; }
+		#grid-example[data-columns="2"] { grid-template-columns: 1fr 1fr; }
+		#grid-example[data-columns="3"] { grid-template-columns: 1fr 1fr 1fr; }
+		#grid-example[data-columns="4"] { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+		.grid-item {
+			background-color: #f0f0f0;
+			border: 1px solid #ccc;
+			padding: 20px;
+			text-align: center;
+		}			
+    </style>
+    <script>
+		function updateDataSwitch() {
+			// Get the select element
+			const selectElement = document.getElementById('numberSelect');
+			// Get the selected value
+			const selectedValue = selectElement.value;
+			// Get the main element
+			const mainElement = document.getElementById('main');
+			// Update the data-switch attribute
+			mainElement.setAttribute('data-switch', selectedValue);
+		}
+		function updateGridColumns() {
+			const selectElement = document.getElementById('columnSelect');
+			const selectedValue = selectElement.value;
+			const gridElement = document.getElementById('grid-example');
+			gridElement.setAttribute('data-columns', selectedValue);
+		}		
+		// close the experiment 
+		function loadBlankPage() {
+			// first check to make sure we're in the iframe
+			if (window.self !== window.top) {
+				// if so, load the blank page
+				window.parent.frames['sourceviewer'].location.href = '../blank.html';
+			} else {
+				// otherwise, if we're in a new tab or window, close it
+				self.close();
+			}
+		}		
+    </script>
+</head>
+
+<body>
+
+	<div id="closebtn" onclick="loadBlankPage()" title="Close"></div>
+
+	<br>	
+
+<div style="text-align:center; clear: both;">
+    <form>
+Select a value:
+<select id="numberSelect" onchange="updateDataSwitch()" style="padding:3px;">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+</select>
+    </form>
+</div>
+
+<br><br>
+
+<!-- Target Div -->
+<main id="main" data-switch="1"></main>
+
+<div style="padding: 20px;">
+	<h1>Description:</h1>
+	<p>This experiment was the result of wanting to change CSS values based on <a href="https://www.w3schools.com/tags/att_data-.asp" target="_blank">data-attributes</a> of an HTML element.</p>
+	<p>The main element of this page looks like this:</p>
+	<p style="font-weight: bold; font-family: monospace;">&lt;main id="main" data-switch="1"&gt;&lt;/main&gt;</p>
+	<p>When you change the value of the select list, some javascript code is triggered which changes the value of the "data-switch" attribute of the &lt;main&gt; element. </p>
+	<p>There are some CSS styles which look like this:</p>
+	<p>
+		<form>
+<textarea rows="27" cols="55">
+main {
+    margin: 0 auto;
+    padding: 10px;
+    width: 500px;
+    height: 300px;			
+}
+main::before {
+    content: 'Switch is set to: ' attr(data-switch);
+}
+main[data-switch='1'] {
+    border: 3px dashed rebeccapurple;
+    background-color: lightgoldenrodyellow;
+} 
+main[data-switch='2'] {
+    border: 3px dashed black;
+    background-color: lightseagreen;
+} 
+main[data-switch='3'] {
+    border: 3px dashed red;
+    background-color: pink;
+} 
+main[data-switch='4'] {
+    border: 3px dashed green;
+    background-color: lightgreen;
+}				
+</textarea>
+		</form>
+	</p>
+	<p>As the data-switch attribute changes value, the corresponding CSS is called to style the main element. This is a simple example using different colors. But, it could also apply to more complex CSS layouts using <a href="https://www.w3schools.com/css/css_grid_container.asp" target="_blank">grid</a> or <a href="https://www.w3schools.com/css/css3_flexbox.asp" target="_blank">flexbox</a> containers. Data attributes could pass values for the numbers of columns or rows to change the layout of the user interface. Or, it could be used to pass height or width values to change the size of elements. The example below demonstrates how data attributes can be used to modify the layout of a CSS grid. The select list allows you to choose the number of columns, which updates the `data-columns` attribute of the grid container. The CSS then uses this attribute to set the appropriate `grid-template-columns` property, changing the layout of the grid.</p>
+	</p>
+
+	<br>
+
+	<div style="text-align:center; clear: both;">
+		<form>
+			Select number of columns:
+			<select id="columnSelect" onchange="updateGridColumns()" style="padding:3px;">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+		</form>
+	</div>
+
+	<p>
+		<div id="grid-example" data-columns="1">
+			<div class="grid-item">1</div>
+			<div class="grid-item">2</div>
+			<div class="grid-item">3</div>
+			<div class="grid-item">4</div>
+		</div>
+	</p>
+
+	<br>
+
+	<p>You can download this code and play around with it here: <a href="experiment3.zip" target="_blank">experiment3.zip</a></p>
+</div>
+
+</body>
+</html>
